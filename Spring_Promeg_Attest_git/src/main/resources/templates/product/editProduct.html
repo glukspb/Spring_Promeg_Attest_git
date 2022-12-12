@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование товаров</title>
+</head>
+<body>
+<!--<a href="../admin/">Вернуться в личный кабинет администратора</a>-->
+<form method="get" th:action="@{/admin/}">
+    <input type="submit" value="Вернуться в личный кабинет администратора">
+</form>
+<br>
+<h3>Редактирование товаров</h3>
+<form th:method="POST" th:action="@{/admin/product/edit/{id}(id=${product.getId()})}" th:object="${product}" enctype="multipart/form-data">
+    <input type="submit" value="Редактировать">
+    <br>
+    <br>
+    <label for="title">Введите наименование товара: </label>
+    <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
+    <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+    <br>
+    <br>
+    <label for="description">Введите описание товара: </label>
+    <textarea th:field="*{description}" placeholder="Описание" id="description"></textarea>
+    <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+    <br>
+     <br>
+    <label for="price">Введите цену товара: </label>
+    <input type="number" th:field="*{price}" min="1" step="0.00" id="price">
+    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    <br>
+    <br>
+    <label for="warehouse">Введите склад: </label>
+    <input type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse">
+    <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
+    <br>
+    <br>
+    <label for="seller">Введите данные о продавце: </label>
+    <textarea th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
+    <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
+    <br>
+    <br>
+    <label for="category">Введите категорию товара: </label>
+    <select name="category" th:field="*{category}" id="category">
+        <div th:each="element : ${category}">
+            <option th:text="${element.getName()}" th:value="${element.getId()}"></option>
+        </div>
+    </select>
+    <br>
+    <br>
+    <br>
+    <input type="submit" value="Редактировать">
+    <br>
+    <p style="color: green; font-size: 20px">Вы можете добавить до 5 фотографий. Первая фотография не может быть пустой т.к она будет являться главной</p>
+<!--    <input type="file" name="file_one" th:value="${file_one.getAbsoluteFile()}">-->
+<!--    <input type="file" name="file_one" th:field="*{file_one}" th:value="${file_one.getPath()}" th:text="${file_one.getName()}" th:attr="title=${file_one.getPath()}">-->
+
+        <label for="file_one">Файл 1 (главный (обязательный) файл):</label>
+        <br>
+<!--        <br> th:file_one="${file_one.getPath()}" th:value="${file_one.getPath()}"-->
+        <input type="file" name="file_one" id="file_one"><input type="submit" value="Применить">
+        <br>
+        <div th:if="${imageList_size} >= 1">
+            <label for="text_BD_file1_">Файл хранящийся из БД:</label>
+            <br>
+            <b th:text="${file_one.getName()}" id="text_BD_file1_"></b>
+            <br>
+            <img th:src="'/img/' + ${product.imageList[0].getFileName()}">
+        </div>
+    <hr>
+
+        <label for="file_two">Файл 2:</label>
+        <br>
+<!--        <br> th:file_two="${file_two.getPath()}" th:value="${file_two.getPath()}"-->
+        <input type="file" name="file_two" id="file_two"><input type="submit" value="Применить">
+        <br>
+        <div th:if="${imageList_size} >= 2">
+            <label for="text_BD_file2_">Файл хранящийся из БД:</label>
+            <br>
+            <b th:text="${file_two.getName()}" id="text_BD_file2_"></b>
+            <br>
+            <img th:src="'/img/' + ${product.imageList[1].getFileName()}">
+        </div>
+    <hr>
+
+        <label for="file_three">Файл 3:</label>
+        <br>
+<!--        <br> th:file_three="${file_three.getPath()}" th:value="${file_three.getPath()}"-->
+        <input type="file" name="file_three" id="file_three"><input type="submit" value="Применить">
+        <br>
+        <div th:if="${imageList_size} >= 3">
+            <label for="text_BD_file3_">Файл хранящийся из БД:</label>
+            <br>
+            <b th:text="${file_three.getName()}" id="text_BD_file3_"></b>
+            <br>
+            <img th:src="'/img/' + ${product.imageList[2].getFileName()}">
+        </div>
+    <hr>
+
+        <label for="file_four">Файл 4:</label>
+        <br>
+<!--        <br> th:file_four="${file_four.getPath()}" th:value="${file_four.getPath()}"-->
+        <input type="file" name="file_four" id="file_four"><input type="submit" value="Применить">
+        <br>
+        <div th:if="${imageList_size} >= 4">
+            <label for="text_BD_file4_">Файл хранящийся из БД:</label>
+            <br>
+            <b th:text="${file_four.getName()}" id="text_BD_file4_"></b>
+            <br>
+            <img th:src="'/img/' + ${product.imageList[3].getFileName()}">
+        </div>
+    <hr>
+
+<!--    <div th:if="${imageList_size} >= 5">-->
+        <label for="file_five">Файл 5:</label>
+        <br>
+<!--        <br> th:file_five="${file_five.getPath()}" th:value="${file_five.getPath()}"-->
+        <input type="file" name="file_five" id="file_five"><input type="submit" value="Применить">
+        <br>
+        <div th:if="${imageList_size} >= 5">
+            <label for="text_BD_file5_">Файл хранящийся из БД:</label>
+            <br>
+            <b th:text="${file_five.getName()}" id="text_BD_file5_"></b>
+            <br>
+            <img th:src="'/img/' + ${product.imageList[4].getFileName()}">
+        </div>
+    <hr>
+<!--    </div>-->
+
+<!--    <br>-->
+<!--    <input type="file" name="file_two" th:file_two="${file_two.getPath()}" th:value="${file_two.getPath()}" th:text="${file_two.getName()}">-->
+<!--    <br>-->
+<!--    <input type="file" name="file_three" th:file_two="${file_three.getPath()}" th:value="${file_three.getPath()}" th:text="${file_three.getName()}">-->
+<!--    <br>-->
+<!--    <input type="file" name="file_four" th:file_two="${file_four.getPath()}" th:value="${file_four.getPath()}" th:text="${file_four.getName()}">-->
+<!--    <br>-->
+<!--    <input type="file" name="file_five" th:file_two="${file_five.getPath()}" th:value="${file_five.getPath()}" th:text="${file_five.getName()}">-->
+<!--    <br>-->
+<!--    <input type="file" name="prm_file" th:value="${prm_file1}">-->
+<!--    <input type="file" name="file_two">-->
+<!--    <input type="file" name="file_three">-->
+<!--    <input type="file" name="file_four">-->
+<!--    <input type="file" name="file_five" th:field="*{file_one}">-->
+
+    <br>
+    <br>
+    <input type="submit" value="Редактировать">
+</form>
+</body>
+</html>

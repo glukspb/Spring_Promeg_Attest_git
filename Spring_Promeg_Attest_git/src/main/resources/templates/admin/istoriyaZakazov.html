@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>История заказов (администратор)</title>
+</head>
+<body>
+<h3>История заказов (администратор)</h3>
+<br>
+<!--<a href="../admin/">Вернуться в личный кабинет администратора</a>-->
+<form method="get" th:action="@{../admin/}">
+    <input type="submit" value="Вернуться в личный кабинет администратора">
+</form>
+<br>
+<form method="get" th:action="@{/admin/istoriyaZakazov}">
+    <input type="submit" value="Вернуться в история заказов">
+</form>
+<br>
+<!--<hr> type="text" size=4-->
+<form th:method="POST" th:action="@{/admin/istoriyaZakazov}">
+    <fieldset>
+        <legend>Выберите параметр для поиска заказов:</legend>
+            <br>
+            <label for="order_search">Поиск по 4 последним буквам/цифрам заказа (order_number):</label>
+            <input type="text" maxlength="4" name="order_search" id="order_search" th:value="*{value_search_order}">
+            <br>
+            <br>
+            <input type="submit" value="Найти">
+            <br>
+    </fieldset>
+</form>
+<!--<hr>-->
+<h3>Результат (найденные заказы)</h3>
+<!--<div th:each="search_orderShapka : ${search_ordersShapkiList}">-->
+<div th:each="search_orderShapka : ${search_ordersShapkiList_000}">
+<!--    <h3 th:text="'Заказ № ' + ${search_orderShapka.getNumber()}"></h3>-->
+    <h3 th:text="'Заказ № ' + ${search_orderShapka.getOrderNumber()}"></h3>
+    <a th:href="@{/admin/order/info/{id}(id=${search_orderShapka.getId()})}" th:text="'Открыть заказ'"></a>
+    <a th:href="@{/admin/order/delete/{id}(id=${search_orderShapka.getId()})}" th:text="'Удалить заказ'"></a>
+<!--    <form method="get" th:action="@{/admin/order/info/{id}(id=${search_orderShapka.getId()})}">-->
+<!--        <input type="submit" value="Открыть заказ">-->
+<!--    </form>-->
+<!--    <br>-->
+<!--    <form method="post" th:action="@{/admin/order/delete/{id}(id=${search_orderShapka.getId()})}">-->
+<!--        <input type="submit" value="Удалить заказ">-->
+<!--    </form>-->
+<!--    <a th:href="@{/infoOrderAdmin/{id}(id=${search_orderShapka.getId()})}" th:text="'Заказ № ' + ${search_orderShapka.getNumber()}"></a>-->
+    <p th:text="'Покупатель: ' + ${search_orderShapka.getPerson().getLogin()}"></p>
+    <p th:text="'Сумма всего: ' + ${search_orderShapka.getPriceTotal()} + ' руб.'"></p>
+    <p th:text="'Дата заказа: ' + ${#temporals.format(search_orderShapka.getDateTime(), 'dd-MMM-yyyy')}"></p>
+    <p th:text="'Статус: ' + ${search_orderShapka.getStatusOrder().getName()}"></p>
+<!--    <hr>-->
+</div>
+<hr>
+<br>
+<br>
+
+<!--<h3>Все заказы</h3>-->
+<!--<div th:each="order : ${orders}">-->
+<!--    <h3 th:text="'Заказ № ' + ${order.getNumber()}"></h3>-->
+<!--&lt;!&ndash;    <p th:text="'Покупатель: ' + ${order.getPerson().getLogin()}"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <img th:src="'/img/' + ${order.getProduct().imageList[0].getFileName()}" width="300px">&ndash;&gt;-->
+<!--&lt;!&ndash;    <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p th:text="'Количество: ' + ${order.getCount()}"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p th:text="'Цена: ' + ${order.getPrice()}"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p th:text="'Статус: ' + ${order.getStatus()}"></p>&ndash;&gt;-->
+<!--    <hr>-->
+<!--</div>-->
+
+<h3>Все заказы (шапки, без строк)</h3>
+<div th:each="orderShapka : ${ordersShapki}">
+<!--    <h3 th:text="'Заказ № ' + ${orderShapka.getNumber()}"></h3>-->
+    <h3 th:text="'Заказ № ' + ${orderShapka.getOrderNumber()}"></h3>
+<!--    <a th:href="@{/admin/order/info/{id}(id=${orderShapka.getId()})}" th:text="'Заказ № ' + ${orderShapka.getNumber()}"></a> + '  длина строки  ' + ${orderShapka.getNumber().length()}-->
+    <a th:href="@{/admin/order/info/{id}(id=${orderShapka.getId()})}" th:text="'Открыть заказ'"></a>
+    <a th:href="@{/admin/order/delete/{id}(id=${orderShapka.getId()})}" th:text="'Удалить заказ'"></a>
+<!--    <form method="get" th:action="@{/admin/order/info/{id}(id=${orderShapka.getId()})}">-->
+<!--        <input type="submit" value="Открыть заказ">-->
+<!--    </form>-->
+<!--    <br>-->
+<!--    <form method="post" th:action="@{/admin/order/delete/{id}(id=${orderShapka.getId()})}">-->
+<!--        <input type="submit" value="Удалить заказ">-->
+<!--    </form>-->
+    <p th:text="'Покупатель: ' + ${orderShapka.getPerson().getLogin()}"></p>
+    <!--    <img th:src="'/img/' + ${order.getProduct().imageList[0].getFileName()}" width="300px">-->
+    <!--    <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>-->
+    <!--    <p th:text="'Количество: ' + ${order.getCount()}"></p>-->
+    <p th:text="'Сумма всего: ' + ${orderShapka.getPriceTotal()} + ' руб.'"></p>
+    <p th:text="'Дата заказа: ' + ${#temporals.format(orderShapka.getDateTime(), 'dd-MMM-yyyy')}"></p>
+<!--    <p th:text="'Статус: ' + ${orderShapka.getStatus()}"></p>-->
+    <p th:text="'Статус: ' + ${orderShapka.getStatusOrder().getName()}"></p>
+<!--    <br>-->
+<!--    <label for="orderStatuses">Статус заказа товара: </label>-->
+<!--    <select name="orderStatuses" th:field="*{orderStatuses}" id="orderStatuses">-->
+<!--        <div th:each="element : ${orderStatuses}">-->
+<!--            <option th:text="${element.name()}" th:value="${element.ordinal()}"></option>-->
+<!--        </div>-->
+<!--    </select>-->
+<!--    <br>-->
+<!--    <label for="statusOrder">Статус заказа товара: </label>-->
+<!--    <select name="statusOrder" th:field="*{statusOrder}" id="statusOrder">-->
+<!--        <div th:each="element : ${statusOrder}">-->
+<!--            <option th:text="${element.getName()}" th:value="${element.getId()}"></option>-->
+<!--        </div>-->
+<!--    </select>-->
+<!--    <br>-->
+    <hr>
+</div>
+
+</body>
+</html>

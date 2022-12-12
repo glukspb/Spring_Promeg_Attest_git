@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказ инфо</title>
+</head>
+<body>
+<!--<br>-->
+<!--<a href="/index">Продолжить выбор товаров</a>-->
+<!--<br>-->
+<br>
+<a href="/orders">Вернуться в список заказов</a>
+<br>
+<hr>
+<!--<h3>Заказ </h3>-->
+<!--<div th:each="order : ${orders}">-->
+<!--<h3 th:text="'Заказ № ' + ${orderShapka.get().getNumber()}"></h3>-->
+<h3 th:text="'Заказ № ' + ${orderShapka.get().getOrderNumber()}"></h3>
+<p th:text="'Дата заказа: ' + ${#temporals.format(orderShapka.get().getDateTime(), 'dd-MMM-yyyy')}"></p>
+<!--<p th:text="'Статус: ' + ${orderShapka.get().getStatus()}"></p>-->
+<p th:text="'Статус: ' + ${orderShapka.get().getStatusOrder().getName()}"></p>
+<div th:each="orderStroka : ${orderStrokiList}">
+    <img th:src="'/img/' + ${orderStroka.getProduct().imageList[0].getFileName()}" width="300px">
+    <p th:text="'Наименование товара: ' + ${orderStroka.getProduct().getTitle()}"></p>
+    <p th:text="'Количество: ' + ${orderStroka.getCount()}"></p>
+    <p th:text="'Цена: ' + ${orderStroka.getPrice()}"></p>
+    <hr>
+</div>
+<!--&lt;!&ndash;<h3>Заказы2</h3>&ndash;&gt;-->
+<!--<div th:each="orderShapki : ${ordersShapki}">-->
+<!--    <h3 th:text="'Заказ № ' + ${orderShapki.getNumber()}"></h3>-->
+<!--&lt;!&ndash;    <img th:src="'/img/' + ${order.getProduct().imageList[0].getFileName()}" width="300px">&ndash;&gt;-->
+<!--&lt;!&ndash;    <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p th:text="'Количество: ' + ${order.getCount()}"></p>&ndash;&gt;-->
+<!--    <p th:text="'Цена: ' + ${orderShapki.getPriceTotal()}"></p>-->
+<!--    <p th:text="'Дата заказа: ' + ${#temporals.format(orderShapki.getDateTime(), 'dd-MMM-yyyy')}"></p>-->
+<!--    <p th:text="'Статус: ' + ${orderShapki.getStatus()}"></p>-->
+<!--    <hr>-->
+<!--</div>-->
+
+<!--<a href="/index">Продолжить выбор товаров</a>-->
+<br>
+<br>
+</body>
+</html>

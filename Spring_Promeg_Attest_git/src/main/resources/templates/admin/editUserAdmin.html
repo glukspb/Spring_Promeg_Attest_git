@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование данных пользователя</title>
+</head>
+<body>
+<br>
+<form method="get" th:action="@{/admin/users}">
+    <input type="submit" value="Вернуться в список пользователей">
+</form>
+<br>
+<h3>Редактирование данных пользователя</h3>
+<!--<form method="get" th:action="@{/admin/user/edit/{id}(id=${user.get().getId()})}">-->
+<!--    <input type="submit" value="Редактировать пользователя">-->
+<!--</form>-->
+<h3 th:text="'login: ' + ${user.get().getLogin()}"></h3>
+<p th:text="'id: ' + ${user.get().getId()}"></p>
+<p th:text="'role: ' + ${user.get().getRole()}"></p>
+<form th:method="POST" th:action="@{/admin/user/edit/{id}(id=${user.get().getId()})}" th:object="${user}">
+    <div hidden>
+        <label for="login">login: </label>
+        <input type="text" th:field="*{login}" placeholder="login пользователя" id="login" readonly>
+        <br>
+        <label for="password">password: </label>
+        <input type="text" th:field="*{password}" placeholder="password пользователя" id="password" readonly>
+        <br>
+    </div>
+    <label for="role">Статус заказа товара: </label>
+    <select name="role" th:field="*{role}" id="role">
+        <div th:each="element : ${rolesList}">
+            <option th:text="${element.getName()}" th:value="${element.getName()}"></option>
+        </div>
+    </select>
+
+    <input type="submit" value="Применить">
+</form>
+
+</body>
+</html>

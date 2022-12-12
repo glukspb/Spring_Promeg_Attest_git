@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей (администратор)</title>
+</head>
+<body>
+<h1>Список пользователей (администратор)</h1>
+<!--<a href="../admin/">Вернуться в личный кабинет администратора</a>-->
+<form method="get" th:action="@{../admin/}">
+    <input type="submit" value="Вернуться в личный кабинет администратора">
+</form>
+<br>
+<form method="get" th:action="@{/admin/users}">
+    <input type="submit" value="Вернуться в список пользователей">
+</form>
+<br>
+<br>
+<h2>Список всех пользователей:</h2>
+<div th:each="user : ${users}">
+<!--    <h3 th:text="'Пользователь: ' + ${user.getLogin()}"></h3>-->
+    <a th:href="@{/admin/user/info/{id}(id=${user.getId()})}" th:text="'lonin: ' + ${user.getLogin()}"></a>
+    <p th:text="'id: ' + ${user.getId()}"></p>
+    <p th:text="'role: ' + ${user.getRole()}"></p>
+<!--    <form method="get" th:action="@{/admin/users/info/{id}(id=${user.getId()})}">-->
+<!--        <input type="submit" value="Вскрыть пользователя">-->
+<!--    </form>-->
+    <hr>
+</div>
+
+</body>
+</html>
